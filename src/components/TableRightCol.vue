@@ -1,6 +1,8 @@
 <template>
-  <div class="column column-left">
-    <div class="element-left">
+  <div class="column column-left"></div>
+  <div class="column">
+    <PointsRight/>
+    <div class="element-right">
       <div class="dates">
         {{ moment(date).format('LL') }}
       </div>
@@ -8,21 +10,19 @@
         {{ firstName + ' ' + lastName }}
       </div>
     </div>
-    <PointsLeft/>
   </div>
-  <div class="column"></div>
 </template>
 
 <script>
-import PointsLeft from './PointsLeft.vue'
+import PointsRight from './PointsRight.vue'
 import moment from "moment";
 
 export default {
   components: {
-    PointsLeft,
+    PointsRight,
   },
 
-  name: 'TableLeftCol',
+  name: 'TableRightCol',
 
   props: {
     firstName: String,
@@ -49,9 +49,9 @@ export default {
   border-right: 3px solid navy;
 }
 
-.element-left {
+.element-right {
   width: 80%;
-  padding-left: 50%;
+  padding-right: 50%;
 }
 
 .dates {

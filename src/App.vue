@@ -1,15 +1,47 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<!--    <TimeLine/>-->
+  <div class="links">
+    <a href="#/">Timeline</a> |
+    <a href="#/routing">Users</a> |
+    <a href="#/non-existent-path">Broken Link</a>
+  </div>
+  <component :is="currentView"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TimeLine from './components/MyComponent.vue'
+import RoutingPage from './components/routing/RoutingPage.vue'
+import NotFound from './components/routing/NotFound.vue'
+
+const routes = {
+  '/': TimeLine,
+  '/routing': RoutingPage,
+}
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
+    // TimeLine,
+    // RoutingPage,
+  },
+
+  data() {
+    return {
+      currentPath: window.location.hash,
+    }
+  },
+
+  computed: {
+    currentView() {
+      return routes[this.currentPath.slice(1) || '/'] || NotFound
+    }
+  },
+
+  mounted() {
+    window.addEventListener('hashchange', () => {
+      this.currentPath = window.location.hash
+    })
   }
 }
 </script>
@@ -22,5 +54,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.links {
+  margin-bottom: 50px;
 }
 </style>
